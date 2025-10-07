@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida Completa all'Ecommerce</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .slides-container {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            overflow-y: auto;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        
+        .slide.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+        
+        .slide.next {
+            transform: translateX(100%);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.6rem;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .highlight {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .link-list {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .link-list a {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .link-list a:hover {
+            color: #1a5276;
+            text-decoration: underline;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            flex-shrink: 0;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .slide-counter {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #ecf0f1;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #3498db;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .exercise {
+            background-color: #e8f6f3;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .exercise h3 {
+            color: #16a085;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .slide {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .content, .link-list {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                height: 95vh;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .slide {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .navigation {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ecommerce: Guida Completa</h1>
+            <p class="subtitle">Definizione, strategie, normative e best practices</p>
+        </header>
+        
+        <div class="slides-container">
+            <!-- Slide 1 -->
+            <div class="slide active" id="slide1">
+                <div class="slide-number">1</div>
+                <h2>COS'È L'ECOMMERCE: DEFINIZIONE E IMPATTO</h2>
+                <div class="content">
+                    <p>L'ecommerce è la compravendita di beni e servizi attraverso canali digitali, che ha ridefinito le regole competitive globali.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Impatto rivoluzionario:</strong></p>
+                        <ul>
+                            <li>Abbattimento barriere tradizionali</li>
+                            <li>Negozio sempre aperto con portata globale</li>
+                            <li>Investimenti infrastrutturali ridotti</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Nuovi standard consumatori:</strong> confronto prezzi istantaneo, recensioni verificate, consegne rapide, resi semplificati.</p>
+                    
+                    <p><strong>Integrazione sistemi:</strong> piattaforma web, pagamenti, magazzino, logistica, CRM, analytics.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Dati Italia 2024:</strong> Ecommerce B2C >54 miliardi di euro, 70% italiani ha acquistato online.</p>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.casaleggio.it" target="_blank">Casaleggio Associati Report</a></li>
+                        <li><a href="https://www.istat.it" target="_blank">ISTAT Statistiche</a></li>
+                        <li><a href="https://wearesocial.com/it" target="_blank">We Are Social Digital Report</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="slide" id="slide2">
+                <div class="slide-number">2</div>
+                <h2>TIPOLOGIE DI ECOMMERCE: B2C E B2B</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Business to Consumer (B2C):</strong></p>
+                        <ul>
+                            <li>Vendita diretta a consumatori finali</li>
+                            <li>Esempi: Amazon, Zalando, Mediaworld</li>
+                            <li>Transazioni rapide, importi contenuti, fattori emotivi</li>
+                            <li>Focus su UX: velocità, navigazione intuitiva, mobile-first</li>
+                            <li>Marketing emozionale: storytelling, influencer, social</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Business to Business (B2B):</strong></p>
+                        <ul>
+                            <li>Transazioni tra imprese</li>
+                            <li>Volumi maggiori, prezzi personalizzati</li>
+                            <li>Processo decisionale complesso e razionale</li>
+                            <li>Coinvolge multiple figure aziendali</li>
+                            <li>Ciclo vendita più lungo ma lifetime value superiore</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Piattaforme B2B:</strong> listini personalizzati, ordini ricorrenti, integrazione ERP, fatturazione elettronica.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.osservatori.net/it/ricerche/osservatori-attivi/b2b-ecommerce" target="_blank">Osservatorio B2B Polimi</a></li>
+                        <li><a href="https://business.amazon.it" target="_blank">Amazon Business</a></li>
+                        <li><a href="https://italian.alibaba.com" target="_blank">Alibaba marketplace B2B</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="slide" id="slide3">
+                <div class="slide-number">3</div>
+                <h2>TIPOLOGIE DI ECOMMERCE: MARKETPLACE VS PROPRIETARI</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Marketplace (Amazon, eBay):</strong></p>
+                        <ul>
+                            <li>Piattaforme che ospitano multipli venditori</li>
+                            <li><strong>Vantaggi:</strong> accesso a clienti esistenti, infrastrutture pronte</li>
+                            <li><strong>Svantaggi:</strong> commissioni (10-30%), controllo brand limitato, concorrenza aggressiva</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Ecommerce Proprietari (Shopify, WooCommerce):</strong></p>
+                        <ul>
+                            <li>Controllo totale su tecnologia e customer journey</li>
+                            <li><strong>Vantaggi:</strong> costruzione brand, proprietà dati clienti, marginalità superiore</li>
+                            <li><strong>Svantaggi:</strong> costi e competenze, traffico non automatico</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Strategia omnicanale:</strong> vendere simultaneamente su proprietario e marketplace per massimizzare copertura e diversificare rischi.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://sellercentral.amazon.it" target="_blank">Amazon Seller Central</a></li>
+                        <li><a href="https://www.ebay.it/sellercenter" target="_blank">eBay per aziende</a></li>
+                        <li><a href="https://www.shopify.com/it" target="_blank">Shopify</a></li>
+                        <li><a href="https://woocommerce.com" target="_blank">WooCommerce</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="slide" id="slide4">
+                <div class="slide-number">4</div>
+                <h2>PANORAMA ECOMMERCE: TREND GLOBALI</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Proiezioni 2025:</strong> vendite online >6.000 miliardi di dollari (25% retail totale).</p>
+                    </div>
+                    
+                    <ul>
+                        <li><strong>Mobile Commerce (m-commerce):</strong> >60% acquisti da smartphone, design mobile-first essenziale</li>
+                        <li><strong>Social Commerce:</strong> Instagram Shopping, Facebook Marketplace, TikTok Shop - convergenza social e acquisti</li>
+                        <li><strong>Omnicanalità:</strong> esperienza fluida tra canali (online/offline), inventario sincronizzato</li>
+                        <li><strong>Personalizzazione AI:</strong> raccomandazioni basate su comportamenti e preferenze</li>
+                        <li><strong>Sostenibilità:</strong> packaging eco-friendly, spedizioni carbon-neutral, trasparenza supply chain</li>
+                        <li><strong>Voice Commerce e Visual Search:</strong> frontiere emergenti con assistenti vocali e ricerca visiva</li>
+                    </ul>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.statista.com/topics/871/online-shopping/" target="_blank">Statista Ecommerce Statistics</a></li>
+                        <li><a href="https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights" target="_blank">McKinsey Digital</a></li>
+                        <li><a href="https://www.emarketer.com" target="_blank">eMarketer Research</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="slide" id="slide5">
+                <div class="slide-number">5</div>
+                <h2>PANORAMA ECOMMERCE IN ITALIA</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Dati Italia 2024:</strong> mercato >54 miliardi di euro, crescita 15% annuo.</p>
+                    </div>
+                    
+                    <ul>
+                        <li><strong>Settori trainanti:</strong> moda (25%), elettronica, food delivery, grocery online</li>
+                        <li><strong>Marketplace dominanti:</strong> Amazon detiene 35-40% mercato</li>
+                        <li><strong>Crescita ecommerce proprietari:</strong> PMI cercano controllo brand e marginalità superiore</li>
+                        <li><strong>Peculiarità italiane:</strong> preferenza pagamento alla consegna (in diminuzione), penetrazione mobile 70%</li>
+                        <li><strong>Sfide:</strong> logistica (tempi consegna), digital divide, diffidenza pagamenti online</li>
+                    </ul>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.osservatori.net/it/ricerche/osservatori-attivi/ecommerce-b2c" target="_blank">Osservatorio eCommerce B2C Polimi</a></li>
+                        <li><a href="https://www.consorzionetcomm.it" target="_blank">Netcomm Report Annuale</a></li>
+                        <li><a href="https://www.casaleggio.it" target="_blank">Casaleggio Associati</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 6 -->
+            <div class="slide" id="slide6">
+                <div class="slide-number">6</div>
+                <h2>VANTAGGI STRATEGICI DELLA GESTIONE ECOMMERCE</h2>
+                <div class="content">
+                    <ul>
+                        <li><strong>Scalabilità senza precedenti:</strong> sempre aperto, migliaia di prodotti, portata globale</li>
+                        <li><strong>Costi operativi inferiori:</strong> niente location costose, personale ridotto, automazione</li>
+                        <li><strong>Raccolta dati strategica:</strong> ogni interazione lascia tracce per ottimizzazione continua</li>
+                        <li><strong>Marketing digitale preciso:</strong> targeting accurato, A/B testing, misurazione ROI</li>
+                        <li><strong>Personalizzazione avanzata:</strong> homepage dinamiche, raccomandazioni AI, offerte su misura</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p>Un ecommerce può essere gestito efficacemente anche da piccoli team, soprattutto con servizi esterni per logistica e customer care.</p>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://analytics.google.com/analytics/academy/" target="_blank">Google Analytics Academy</a></li>
+                        <li><a href="https://academy.hubspot.com" target="_blank">HubSpot Academy Marketing</a></li>
+                        <li><a href="https://www.shopify.com/it/blog" target="_blank">Shopify Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 7 -->
+            <div class="slide" id="slide7">
+                <div class="slide-number">7</div>
+                <h2>CRITICITÀ DELLA GESTIONE ECOMMERCE</h2>
+                <div class="content">
+                    <ul>
+                        <li><strong>Concorrenza spietata:</strong> barriere all'ingresso basse, differenziazione essenziale</li>
+                        <li><strong>Logistica complessa:</strong> magazzino, spedizioni, resi (20-30% in fashion)</li>
+                        <li><strong>Sicurezza dati:</strong> target privilegiato per attacchi informatici</li>
+                        <li><strong>Costi acquisizione clienti in aumento:</strong> da decine a centinaia di euro per nuovo cliente</li>
+                        <li><strong>Customer service impegnativo:</strong> risposte rapide, multi-canale, gestione picchi</li>
+                        <li><strong>Abbandono carrello:</strong> 70% in media, per costi spedizione, checkout complesso, navigazione senza acquisto</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p>Ridurre l'abbandono carrello richiede ottimizzazione continua e strategie di recupero (email reminder, retargeting).</p>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.pcisecuritystandards.org" target="_blank">PCI Security Standards</a></li>
+                        <li><a href="https://baymard.com/checkout-usability" target="_blank">Baymard Institute Checkout Usability</a></li>
+                        <li><a href="https://it.trustpilot.com" target="_blank">Trustpilot per gestione recensioni</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 8 -->
+            <div class="slide" id="slide8">
+                <div class="slide-number">8</div>
+                <h2>CENNI NORMATIVI: PRIVACY E GDPR</h2>
+                <div class="content">
+                    <p>Il GDPR (General Data Protection Regulation) disciplina trattamento e protezione dei dati personali dal 2018.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Obblighi per ecommerce:</strong></p>
+                        <ul>
+                            <li>Informativa privacy chiara e accessibile</li>
+                            <li>Consenso esplicito per trattamenti non necessari</li>
+                            <li>Misure di sicurezza adeguate</li>
+                            <li>Registro delle attività di trattamento</li>
+                            <li>Diritti degli interessati garantiti (accesso, cancellazione, portabilità)</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Sicurezza obbligatoria:</strong> cifratura dati, accesso limitato, protezione da attacchi. In caso di data breach, notifica entro 72 ore.</p>
+                    
+                    <p><strong>Sanzioni:</strong> fino a 20 milioni di euro o 4% del fatturato annuo globale.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://gdpr-info.eu" target="_blank">GDPR ufficiale</a></li>
+                        <li><a href="https://www.garanteprivacy.it" target="_blank">Garante Privacy Italia</a></li>
+                        <li><a href="https://www.iubenda.com/it" target="_blank">Iubenda (tool per privacy policy)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 9 -->
+            <div class="slide" id="slide9">
+                <div class="slide-number">9</div>
+                <h2>CENNI NORMATIVI: VENDITE ONLINE E DIRITTO DEL CONSUMO</h2>
+                <div class="content">
+                    <p>Il Codice del Consumo (D.Lgs. 206/2005) regola le vendite online con obblighi specifici a tutela del consumatore.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Diritti del consumatore:</strong></p>
+                        <ul>
+                            <li><strong>Diritto di recesso:</strong> 14 giorni dalla ricezione, senza motivazioni</li>
+                            <li><strong>Informazioni precontrattuali:</strong> caratteristiche prodotto, prezzo totale, modalità pagamento e consegna</li>
+                            <li><strong>Garanzia legale:</strong> 2 anni per beni di consumo</li>
+                            <li><strong>Prezzi trasparenti:</strong> sempre comprensivi di IVA e spese</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Fatturazione elettronica:</strong> obbligatoria per B2B e B2G, raccomandata per B2C.</p>
+                    
+                    <p><strong>Obblighi informativi:</strong> ragione sociale, P.IVA, REA, PEC, informazioni su iscrizione albi.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.mise.gov.it" target="_blank">Codice del Consumo</a></li>
+                        <li><a href="https://www.agcm.it" target="_blank">AGCM Autorità Garante Concorrenza</a></li>
+                        <li><a href="https://www.agenziaentrate.gov.it" target="_blank">Agenzia delle Entrate Fatturazione</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 10 -->
+            <div class="slide" id="slide10">
+                <div class="slide-number">10</div>
+                <h2>ESEMPIO PRATICO NORMATIVO: GESTIONE PRIVACY</h2>
+                <div class="content">
+                    <p>Implementare la compliance GDPR richiede strumenti e procedure concrete.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Cookie banner:</strong> deve apparire all'arrivo sul sito, prima di qualsiasi cookie non tecnico, con scelte granulari.</p>
+                    </div>
+                    
+                    <ul>
+                        <li><strong>Privacy policy:</strong> completa, chiara, accessibile da ogni pagina</li>
+                        <li><strong>Consenso newsletter:</strong> checkbox specifico non pre-spuntato, proof of consent</li>
+                        <li><strong>Registro trattamenti:</strong> documenta finalità, categorie dati, destinatari, misure sicurezza</li>
+                        <li><strong>Gestione richieste:</strong> risposta entro 30 giorni a richieste esercizio diritti</li>
+                        <li><strong>Fornitori e DPA:</strong> Data Processing Agreements con fornitori esterni</li>
+                    </ul>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.iubenda.com/it" target="_blank">Iubenda</a></li>
+                        <li><a href="https://www.cookiebot.com" target="_blank">Cookiebot</a></li>
+                        <li><a href="https://www.onetrust.com" target="_blank">OneTrust</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 11 -->
+            <div class="slide" id="slide11">
+                <div class="slide-number">11</div>
+                <h2>CASO STUDIO: AZIENDA ECOMMERCE ITALIANA</h2>
+                <div class="content">
+                    <p><strong>Contesto:</strong> PMI produttrice di specialità alimentari artigianali, precedentemente focalizzata su canale tradizionale.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Strategia implementata:</strong></p>
+                        <ul>
+                            <li>Lancio ecommerce proprietario su Shopify</li>
+                            <li>Apertura su Amazon per sfruttare traffico esistente</li>
+                            <li>Investimento in SEO e content marketing</li>
+                            <li>Email marketing automation e programma fedeltà</li>
+                            <li>Partnership con corriere per consegne rapide</li>
+                            <li>Implementazione completa compliance GDPR</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Risultati in 3 anni:</strong> online passato da 0% a 30% del fatturato totale. Sito proprietario genera 60% vendite online (maggiori margini).</p>
+                    
+                    <p><strong>Fattori di successo:</strong> prodotto di qualità, storytelling autentico, UX curata, servizio clienti rapido.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.shopify.com/it/blog/topic/case-studies" target="_blank">Case studies Shopify</a></li>
+                        <li><a href="https://sell.amazon.it/success-stories" target="_blank">Success stories Amazon</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 12 -->
+            <div class="slide" id="slide12">
+                <div class="slide-number">12</div>
+                <h2>ESERCIZIO INTERATTIVO: ANALISI SWOT ECOMMERCE</h2>
+                <div class="content">
+                    <p>L'analisi SWOT (Strengths, Weaknesses, Opportunities, Threats) valuta la posizione competitiva di un ecommerce.</p>
+                    
+                    <div class="exercise">
+                        <h3>Caso pratico: Ecommerce abbigliamento sostenibile</h3>
+                        <p>Fatturato 500K€, 3 dipendenti, prodotti eco-friendly fascia medio-alta. Presenza su sito proprietario e Instagram Shopping.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Punti di Forza (Strengths):</strong></p>
+                        <ul>
+                            <li>Prodotti autenticamente sostenibili con certificazioni</li>
+                            <li>Storytelling forte sul brand e filiera tracciabile</li>
+                            <li>Community Instagram coinvolta (15K follower)</li>
+                            <li>Customer service personalizzato e rapido</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Punti di Debolezza (Weaknesses):</strong></p>
+                        <ul>
+                            <li>Catalogo limitato (50 prodotti)</li>
+                            <li>Costi produzione elevati → prezzi premium</li>
+                            <li>Investimenti marketing ridotti</li>
+                            <li>Logistica gestita manualmente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 13 -->
+            <div class="slide" id="slide13">
+                <div class="slide-number">13</div>
+                <h2>ANALISI SWOT: OPPORTUNITÀ E MINACCE</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Opportunità (Opportunities):</strong></p>
+                        <ul>
+                            <li>Crescente sensibilità consumatori verso sostenibilità</li>
+                            <li>Normative europee più stringenti su trasparenza</li>
+                            <li>Apertura su marketplace verticali sostenibili</li>
+                            <li>Collaborazioni con influencer autentici</li>
+                            <li>Espansione in mercati nord europei</li>
+                            <li>Programmi di economia circolare</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Minacce (Threats):</strong></p>
+                        <ul>
+                            <li>Greenwashing dei grandi brand</li>
+                            <li>Recessione economica → alternative più economiche</li>
+                            <li>Costi logistici e materie prime in aumento</li>
+                            <li>Nuovi competitor nel settore sostenibilità</li>
+                            <li>Dipendenza da Instagram (algoritmi variabili)</li>
+                            <li>Normative privacy sempre più stringenti</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="exercise">
+                        <h3>Attività didattica:</h3>
+                        <p>Dividere in gruppi, analizzare il caso, compilare matrice SWOT e elaborare 3 azioni strategiche prioritarie.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 14 -->
+            <div class="slide" id="slide14">
+                <div class="slide-number">14</div>
+                <h2>APPROFONDIMENTO: MOBILE COMMERCE</h2>
+                <div class="content">
+                    <p>Il Mobile Commerce rappresenta la modalità dominante: >60% transazioni da smartphone.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Implicazioni progettuali mobile-first:</strong></p>
+                        <ul>
+                            <li>Navigazione essenziale: menu hamburger, ricerca prominente</li>
+                            <li>Immagini zoomabili, descrizioni sintetiche ma complete</li>
+                            <li>Checkout semplificato: autofill, wallet digitali preintegrati</li>
+                            <li>Velocità di caricamento critica: ogni secondo di ritardo riduce conversioni</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Tecnologie essenziali:</strong> AMP (Accelerated Mobile Pages), lazy loading, CDN, PWA (Progressive Web App).</p>
+                    
+                    <p><strong>App nativa vs sito mobile:</strong> app offrono esperienze superiori ma richiedono investimenti maggiori. PWA come compromesso ottimale.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.thinkwithgoogle.com/intl/en-emea/consumer-insights/consumer-trends/mobile-shopping/" target="_blank">Think with Google Mobile</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 15 -->
+            <div class="slide" id="slide15">
+                <div class="slide-number">15</div>
+                <h2>APPROFONDIMENTO: SOCIAL COMMERCE</h2>
+                <div class="content">
+                    <p>Il Social Commerce integra scoperta, valutazione e acquisto direttamente nei social network.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Piattaforme e funzionalità:</strong></p>
+                        <ul>
+                            <li><strong>Instagram Shopping:</strong> prodotti taggabili in post e stories, cataloghi shoppable</li>
+                            <li><strong>Facebook Shops e Marketplace:</strong> vetrine brandizzate, checkout nativo</li>
+                            <li><strong>TikTok Shop:</strong> live shopping, video shoppable, pubblico Gen Z</li>
+                            <li><strong>Pinterest Shopping:</strong> ideale per settori visual (home decor, fashion)</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Strategie vincenti:</strong></p>
+                    <ul>
+                        <li>Contenuti autentici e non eccessivamente promozionali</li>
+                        <li>Collaborazioni con micro-influencer (più credibili)</li>
+                        <li>Sfruttare funzionalità native (Reels, Stories)</li>
+                        <li>Risposte rapide a commenti e DM</li>
+                        <li>Analisi metriche per ottimizzazione</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 16 -->
+            <div class="slide" id="slide16">
+                <div class="slide-number">16</div>
+                <h2>IL RUOLO DELLE PIATTAFORME TECNOLOGICHE</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Shopify (SaaS):</strong></p>
+                        <ul>
+                            <li>Facilità d'uso estrema, time-to-market rapidissimo</li>
+                            <li>Ecosystem ricchissimo di app e temi</li>
+                            <li>Sicurezza e aggiornamenti gestiti da Shopify</li>
+                            <li>Ideale per: startup, PMI, velocità e semplicità</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>WooCommerce (open source):</strong></p>
+                        <ul>
+                            <li>Massima flessibilità, personalizzazione senza limiti</li>
+                            <li>Ecosistema WordPress vastissimo</li>
+                            <li>Richiede competenze tecniche per setup e manutenzione</li>
+                            <li>Ideale per: chi ha già WordPress, personalizzazioni specifiche</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Magento/Adobe Commerce (enterprise):</strong></p>
+                        <ul>
+                            <li>Potenza e flessibilità enormi per grandi volumi</li>
+                            <li>Gestione multi-store, multi-valuta, B2B e B2C</li>
+                            <li>Richiede investimenti significativi e team specializzato</li>
+                            <li>Ideale per: grandi aziende, operazioni internazionali complesse</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 17 -->
+            <div class="slide" id="slide17">
+                <div class="slide-number">17</div>
+                <h2>STRUMENTI INTEGRATIVI ESSENZIALI</h2>
+                <div class="content">
+                    <ul>
+                        <li><strong>CRM (Customer Relationship Management):</strong> centralizza informazioni clienti (HubSpot, Salesforce, Zoho)</li>
+                        <li><strong>Marketing Automation:</strong> flussi automatizzati (Klaviyo, Mailchimp)</li>
+                        <li><strong>Analytics e BI:</strong> analisi traffico, comportamento, conversioni (Google Analytics, Hotjar, Tableau)</li>
+                        <li><strong>Gestionale (ERP):</strong> sincronizza ecommerce con processi aziendali (TeamSystem, Odoo, NetSuite)</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p><strong>L'importanza dell'ecosistema integrato:</strong></p>
+                        <p>La forza di una piattaforma moderna sta nelle integrazioni. Ecosistemi connessi eliminano silos informativi e permettono automazioni potenti.</p>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.hubspot.com/products/crm" target="_blank">HubSpot CRM</a></li>
+                        <li><a href="https://www.klaviyo.com" target="_blank">Klaviyo</a></li>
+                        <li><a href="https://analytics.google.com" target="_blank">Google Analytics</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 18 -->
+            <div class="slide" id="slide18">
+                <div class="slide-number">18</div>
+                <h2>L'ESPERIENZA CLIENTE NELL'ECOMMERCE</h2>
+                <div class="content">
+                    <p>L'esperienza cliente (Customer Experience, CX) è il fattore differenziante primario.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Elementi chiave:</strong></p>
+                        <ul>
+                            <li><strong>Velocità di caricamento:</strong> ogni secondo di ritardo riduce conversioni del 7%</li>
+                            <li><strong>Navigazione intuitiva:</strong> trovare in massimo 3 click, ricerca con autocomplete</li>
+                            <li><strong>Schede prodotto efficaci:</strong> immagini multiple, descrizioni dettagliate, recensioni</li>
+                            <li><strong>Recensioni e social proof:</strong> 83% consumatori legge recensioni prima di acquistare</li>
+                            <li><strong>Checkout ottimizzato:</strong> minimo numero di step, guest checkout, multiple opzioni pagamento</li>
+                            <li><strong>Personalizzazione:</strong> homepage dinamiche, raccomandazioni AI, offerte su misura</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://pagespeed.web.dev" target="_blank">Google PageSpeed Insights</a></li>
+                        <li><a href="https://baymard.com" target="_blank">Baymard Institute (UX research)</a></li>
+                        <li><a href="https://www.hotjar.com" target="_blank">Hotjar (user behavior)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 19 -->
+            <div class="slide" id="slide19">
+                <div class="slide-number">19</div>
+                <h2>GESTIONE LOGISTICA E CUSTOMER CARE</h2>
+                <div class="content">
+                    <p>La logistica è il momento della verità: dopo l'esperienza digitale, il cliente riceve il prodotto fisico.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Gestione magazzino:</strong></p>
+                        <ul>
+                            <li>Interna per volumi contenuti: spazio organizzato, WMS integrato</li>
+                            <li>Outsourcing (3PL) per volumi crescenti: economie di scala, tecnologia ammortizzata</li>
+                            <li>Soluzioni: Amazon FBA, 3PL specializzati ecommerce</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Spedizioni:</strong></p>
+                        <ul>
+                            <li>Consumatori vogliono consegne rapide (24-48h), tracciabili, affidabili</li>
+                            <li>Opzioni: corriere espresso, Poste Italiane, corriere internazionale</li>
+                            <li>Strategie: spedizione gratuita sopra soglia, abbonamenti illimitati</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Packaging:</strong> protettivo, sostenibile, brandizzato, pratico. L'unboxing experience influenza percezione brand.</p>
+                </div>
+            </div>
+            
+            <!-- Slide 20 -->
+            <div class="slide" id="slide20">
+                <div class="slide-number">20</div>
+                <h2>GESTIONE RESI E CUSTOMER CARE</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Gestione resi:</strong></p>
+                        <ul>
+                            <li>Inevitalibili, specialmente in fashion (tassi 20-30%)</li>
+                            <li>Processo deve essere: semplice, trasparente, rapido</li>
+                            <li>Analytics sui resi forniscono insights su problemi prodotti</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>Customer Care proattivo:</strong></p>
+                        <ul>
+                            <li>Comunicazioni proattive: conferma ordine, notifica spedizione, alert ritardi</li>
+                            <li>Canali multipli: email, chat live, telefono, social media</li>
+                            <li>Gestione reclami: opportunità per trasformare clienti insoddisfatti in advocate</li>
+                        </ul>
+                    </div>
+                    
+                    <p><strong>Misurazione soddisfazione:</strong> survey post-acquisto (CSAT), NPS, analisi recensioni e sentiment social.</p>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.shipbob.com" target="_blank">ShipBob (3PL)</a></li>
+                        <li><a href="https://sell.amazon.it/fulfillment-by-amazon" target="_blank">Amazon FBA</a></li>
+                        <li><a href="https://www.zendesk.it" target="_blank">Zendesk (customer service)</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Slide 21 -->
+            <div class="slide" id="slide21">
+                <div class="slide-number">21</div>
+                <h2>PERFORMANCE E ANALYTICS</h2>
+                <div class="content">
+                    <p>"You can't improve what you don't measure" - analytics fornisce la base per decisioni data-driven.</p>
+                    
+                    <div class="highlight">
+                        <p><strong>Google Analytics 4 (GA4):</strong></p>
+                        <ul>
+                            <li>Traccia utenti, sorgenti traffico, comportamento, conversioni</li>
+                            <li>Event-based tracking, analytics predittiva</li>
+                            <li>Setup essenziale: Google Tag Manager, ecommerce tracking, segmenti personalizzati</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight">
+                        <p><strong>KPI fondamentali:</strong></p>
+                        <ul>
+                            <li><strong>Conversion Rate:</strong> % visitatori che completano acquisto (benchmark 1-3%)</li>
+                            <li><strong>Average Order Value (AOV):</strong> revenue totale / numero ordini</li>
+                            <li><strong>Customer Lifetime Value (CLV):</strong> valore totale cliente nel tempo</li>
+                            <li><strong>Customer Acquisition Cost (CAC):</strong> costo marketing / nuovi clienti</li>
+                            <li><strong>Cart Abandonment Rate:</strong> % carrelli non completati (media 70%)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 22 -->
+            <div class="slide" id="slide22">
+                <div class="slide-number">22</div>
+                <h2>SINTESI E RACCOMANDAZIONI</h2>
+                <div class="content">
+                    <div class="highlight">
+                        <p><strong>Fondamenti strategici:</strong> L'ecommerce richiede competenze multidisciplinari. Scelta modello guidata da analisi di mercato e risorse.</p>
+                    </div>
+                    
+                    <ul>
+                        <li><strong>Tecnologia come abilitatore:</strong> Shopify (rapidità), WooCommerce (flessibilità), Magento (enterprise)</li>
+                        <li><strong>Customer Experience al centro:</strong> differenziatore principale in mercato ipercompetitivo</li>
+                        <li><strong>Dati e ottimizzazione continua:</strong> approccio data-driven con monitoraggio KPI e testing</li>
+                        <li><strong>Compliance normativa:</strong> GDPR, diritto consumo, fatturazione elettronica - non negoziabili</li>
+                        <li><strong>Logistica:</strong> momento della verità che influenza soddisfazione e riacquisto</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <p><strong>Raccomandazioni operative:</strong></p>
+                        <ul>
+                            <li>Iniziare lean con MVP</li>
+                            <li>Focus su nicchia specifica</li>
+                            <li>Investire in contenuti e SEO</li>
+                            <li>Costruire email list</li>
+                            <li>Monitorare cashflow attentamente</li>
+                            <li>Non trascurare customer care</li>
+                            <li>Implementare compliance fin dall'inizio</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="link-list">
+                    <p><strong>Link utili:</strong></p>
+                    <ul>
+                        <li><a href="https://www.shopify.com/blog/ecommerce-best-practices" target="_blank">Ecommerce Best Practices</a></li>
+                        <li><a href="https://www.digitalcommerce360.com" target="_blank">Digital Commerce 360</a></li>
+                        <li><a href="https://www.practicalecommerce.com" target="_blank">Practical Ecommerce</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button id="prevBtn" disabled>
+                <span>←</span> Precedente
+            </button>
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
+            </div>
+            <button id="nextBtn">
+                Successiva <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const currentSlideElement = document.getElementById('currentSlide');
+            const totalSlidesElement = document.getElementById('totalSlides');
+            const progressBar = document.getElementById('progress');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            totalSlidesElement.textContent = totalSlides;
+            
+            function updateNavigation() {
+                currentSlideElement.textContent = currentSlide + 1;
+                
+                // Aggiorna stato pulsanti
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+                
+                // Aggiorna barra di progresso
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Aggiorna slides
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev', 'next');
+                    
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index < currentSlide) {
+                        slide.classList.add('prev');
+                    } else {
+                        slide.classList.add('next');
+                    }
+                });
+            }
+            
+            function goToNextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateNavigation();
+                }
+            }
+            
+            function goToPrevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateNavigation();
+                }
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', goToNextSlide);
+            prevBtn.addEventListener('click', goToPrevSlide);
+            
+            // Tasti freccia
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    goToNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    goToPrevSlide();
+                }
+            });
+            
+            // Inizializza
+            updateNavigation();
+        });
+    </script>
+</body>
+</html>
